@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,10 +9,13 @@ using System.Windows;
 
 namespace Whitestone.OpenSerialPortMonitor.Main
 {
-    public class ShellViewModel : Screen
+    [Export(typeof(IShell))]
+    public class ShellViewModel : Screen, IShell, IHandle<TestMessage>
     {
         string name;
         SecondViewModel _secondView;
+
+        private readonly IEventAggregator _eventAggregator;
 
         public string Name
         {
@@ -22,6 +26,13 @@ namespace Whitestone.OpenSerialPortMonitor.Main
                 NotifyOfPropertyChange(() => Name);
                 NotifyOfPropertyChange(() => CanSayHello);
             }
+        }
+
+        [ImportingConstructor]
+        public ShellViewModel(IEventAggregator eventAggregator)
+        {
+            _eventAggregator = eventAggregator;
+            _eventAggregator.Subscribe(this);
         }
 
         public bool CanSayHello
@@ -36,7 +47,7 @@ namespace Whitestone.OpenSerialPortMonitor.Main
 
         protected override void OnInitialize()
         {
-            SecondView = new SecondViewModel();
+            SecondView = new SecondViewModel(_eventAggregator);
             base.OnInitialize();
         }
 
@@ -51,6 +62,12 @@ namespace Whitestone.OpenSerialPortMonitor.Main
                 _secondView = value;
                 NotifyOfPropertyChange(() => SecondView);
             }
+        }
+
+        public void Handle(TestMessage message)
+        {
+            MessageBox.Show("Value: " + message.FooBar);
+            Name = message.FooBar;
         }
     }
 }

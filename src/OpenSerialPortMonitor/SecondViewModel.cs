@@ -10,9 +10,19 @@ namespace Whitestone.OpenSerialPortMonitor.Main
 {
     public class SecondViewModel : PropertyChangedBase
     {
+        private readonly IEventAggregator _eventAggregator;
+
+        public SecondViewModel(IEventAggregator eventAggregator)
+        {
+            _eventAggregator = eventAggregator;
+        }
+
         public void SecondButton()
         {
-            MessageBox.Show("Second box");
+            _eventAggregator.PublishOnBackgroundThread(new TestMessage
+            {
+                FooBar = "From SecondViewModel"
+            });
         }
     }
 }
