@@ -42,7 +42,16 @@ namespace Whitestone.OpenSerialPortMonitor.Main
 
         public void SayHello()
         {
-            MessageBox.Show(string.Format("Hello {0}!", Name)); //Don't do this in real life :)
+            //MessageBox.Show(string.Format("Hello {0}!", Name)); //Don't do this in real life :)
+            SerialCommunication.SerialReader sr = new SerialCommunication.SerialReader();
+            sr.SerialDataReceived += SerialDataReceived;
+            sr.Start("COM3", 4800, System.IO.Ports.Parity.None, 8, System.IO.Ports.StopBits.One);
+        }
+
+        private void SerialDataReceived(object sender, SerialCommunication.SerialDataReceivedEventArgs e)
+        {
+            string data = System.Text.Encoding.ASCII.GetString(e.Data);
+            Name = data;
         }
 
         protected override void OnInitialize()

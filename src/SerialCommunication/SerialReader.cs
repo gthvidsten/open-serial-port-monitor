@@ -7,51 +7,80 @@ using System.Threading.Tasks;
 
 namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
 {
-    public class SerialReader
+    public class SerialReader : IDisposable
     {
-        SerialPort m_SerialPort = null;
+        // Event handlers
+        public event EventHandler<SerialDataReceivedEventArgs> SerialDataReceived;
+
+        // Private variables
+        SerialPort _serialPort = null;
         string m_DataBuffer = string.Empty;
 
 
-        public SerialReader()
+        public string[] GetAvailablePorts()
         {
+            return SerialPort.GetPortNames();
         }
 
-        void SerialPortDataReceived(object sender, SerialDataReceivedEventArgs e)
+        public void Start(string portName, int baudRate, Parity parity, int dataBits, StopBits stopBits)
         {
-            // Read the data from COM and empty the COM buffer
-            string comBuffer = m_SerialPort.ReadExisting();
-            m_SerialPort.DiscardInBuffer(); // Clear buffer
-        }
+            if (!GetAvailablePorts().Contains(portName))
+            {
+                throw new Exception(string.Format("Unknown serial port: {0}", portName));
+            }
 
-
-        public void Start()
-        {
             // Instantiate new serial port communication
-            m_SerialPort = new SerialPort("COM1", 9600, Parity.None, 8, StopBits.One);
+            _serialPort = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
 
             // Open serial port communication
-            m_SerialPort.Open();
+            _serialPort.Open();
 
-            if (m_SerialPort.IsOpen)
+            // Check that it is actually open
+            if (!_serialPort.IsOpen)
             {
-                m_SerialPort.ReadTimeout = 100; // Milliseconds
-                m_SerialPort.DataReceived += SerialPortDataReceived;
+                throw new Exception(string.Format("Could not open serial port: {0}", portName));
             }
-            else
-            {
-                throw new Exception("Could not open serial port COM1");
-            }
+
+            _serialPort.ReadTimeout = 100; // Milliseconds
+            _serialPort.DataReceived += SerialPortDataReceived;
         }
 
         public void Stop()
         {
-            if (m_SerialPort != null)
+            if (_serialPort != null)
             {
-                m_SerialPort.Close();
-                m_SerialPort.Dispose();
-                m_SerialPort = null;
+                _serialPort.DataReceived -= SerialPortDataReceived;
+                _serialPort.Close();
+                _serialPort.Dispose();
+                _serialPort = null;
             }
+        }
+
+        private void SerialPortDataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        {
+            // Read the data from COM and empty the COM buffer
+            //string comBuffer = _serialPort.ReadExisting();
+            //_serialPort.DiscardInBuffer(); // Clear buffer
+
+            SerialPort serialPort = (SerialPort)sender;
+            byte[] buffer = new byte[serialPort.BytesToRead];
+            serialPort.Read(buffer, 0, buffer.Length);
+
+            OnDataReceived(this, new SerialDataReceivedEventArgs() { Data = buffer });
+        }
+
+        private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            EventHandler<SerialDataReceivedEventArgs> handler = SerialDataReceived;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        public void Dispose()
+        {
+            Stop();
         }
     }
 }
