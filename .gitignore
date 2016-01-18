@@ -1,0 +1,5 @@
+/src/.nuget/NuGet.exe
+/src/OpenSerialPortMonitor/obj
+/src/OpenSerialPortMonitor/bin
+/src/SerialCommunication/obj
+/src/SerialCommunication/bin
