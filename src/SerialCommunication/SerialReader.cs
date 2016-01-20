@@ -17,9 +17,17 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
         string m_DataBuffer = string.Empty;
 
 
-        public string[] GetAvailablePorts()
+        public static IEnumerable<string> GetAvailablePorts()
         {
-            return SerialPort.GetPortNames();
+            List<string> comPorts = new List<string>();
+            
+            string[] availablePorts = SerialPort.GetPortNames();
+            foreach(string port in availablePorts)
+            {
+                comPorts.Add(port);
+            }
+
+            return comPorts;
         }
 
         public void Start(string portName, int baudRate, Parity parity, int dataBits, StopBits stopBits)

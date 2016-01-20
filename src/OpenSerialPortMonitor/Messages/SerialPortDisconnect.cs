@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Whitestone.OpenSerialPortMonitor.Main
+namespace Whitestone.OpenSerialPortMonitor.Main.Messages
 {
-    public class TestMessage
+    public class SerialPortDisconnect
     {
-        public string FooBar { get; set; }
     }
 }

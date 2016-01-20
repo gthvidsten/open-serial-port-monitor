@@ -8,8 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Whitestone.OpenSerialPortMonitor.Main.Framework;
 
-namespace Whitestone.OpenSerialPortMonitor.Main
+namespace Whitestone.OpenSerialPortMonitor.Main.Framework
 {
     public class AppBootstrapper : BootstrapperBase
     {
@@ -58,6 +59,17 @@ namespace Whitestone.OpenSerialPortMonitor.Main
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
             DisplayRootViewFor<IShell>();
+        }
+
+        protected override void OnUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            string message = e.Exception.Message;
+            if (e.Exception.InnerException != null)
+            {
+                message = e.Exception.InnerException.Message;
+            }
+            MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            e.Handled = true;
         }
     }
 }

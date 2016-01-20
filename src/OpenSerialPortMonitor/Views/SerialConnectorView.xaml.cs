@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Whitestone.OpenSerialPortMonitor.Main
+namespace Whitestone.OpenSerialPortMonitor.Main.Views
 {
     /// <summary>
-    /// Interaction logic for ShellView.xaml
+    /// Interaction logic for SerialConnectorViewModel.xaml
     /// </summary>
-    public partial class ShellView : UserControl
+    public partial class SerialConnectorView : UserControl
     {
-        public ShellView()
+        public SerialConnectorView()
         {
             InitializeComponent();
         }

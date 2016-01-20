@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Whitestone.OpenSerialPortMonitor.Main
+namespace Whitestone.OpenSerialPortMonitor.Main.Views
 {
     /// <summary>
-    /// Interaction logic for SecondView.xaml
+    /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class SecondView : UserControl
+    public partial class MainView : UserControl
     {
-        public SecondView()
+        public MainView()
         {
             InitializeComponent();
         }
