@@ -13,46 +13,20 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
     public class SerialConnectorViewModel : PropertyChangedBase
     {
         private readonly IEventAggregator _eventAggregator;
-        private bool _canEdit = true;
-        private string _buttonText = "Connect";
-
+        
         public BindableCollection<string> ComPorts { get; set; }
         public BindableCollection<int> BaudRates { get; set; }
         public BindableCollection<Parity> Parities { get; set; }
         public BindableCollection<int> DataBits { get; set; }
         public BindableCollection<StopBits> StopBits { get; set; }
 
-        private string _selectedComPort;
-        public string SelectedComPort {
-            get
-            {
-                return _selectedComPort;
-            }
-            set
-            {
-                _selectedComPort = value;
-                NotifyOfPropertyChange(() => SelectedComPort);
-            }
-        }
-
-        private int _selectedBaudRate;
-        public int SelectedBaudRate
-        {
-            get
-            {
-                return _selectedBaudRate;
-            }
-            set
-            {
-                _selectedBaudRate = value;
-                NotifyOfPropertyChange(() => SelectedBaudRate);
-            }
-        }
-
+        public string SelectedComPort { get; set; }
+        public int SelectedBaudRate { get; set; }
         public int SelectedDataBits { get; set; }
         public Parity SelectedParity { get; set; }
         public StopBits SelectedStopBits { get; set; }
 
+        private string _buttonText = "Connect";
         public string ButtonText
         {
             get { return _buttonText; }
@@ -63,6 +37,7 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
             }
         }
 
+        private bool _canEdit = true;
         public bool CanEdit
         {
             get { return _canEdit; }
@@ -76,11 +51,12 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
         public SerialConnectorViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
+            
+            BindValues();
+        }
 
-            ButtonText = "Connect";
-
-            RefreshComPorts();
-
+        private void BindValues()
+        {
             BaudRates = new BindableCollection<int>() { 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200 };
             SelectedBaudRate = 4800;
 
@@ -101,10 +77,7 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
             }
             SelectedStopBits = System.IO.Ports.StopBits.One;
 
-        }
 
-        private void RefreshComPorts()
-        {
             IEnumerable<string> ports = SerialReader.GetAvailablePorts();
             ComPorts = new BindableCollection<string>();
             ComPorts.AddRange(ports);
