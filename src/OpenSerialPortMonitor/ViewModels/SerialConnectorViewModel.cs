@@ -100,9 +100,6 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
                     Parity = SelectedParity,
                     StopBits = SelectedStopBits
                 });
-
-                //int[] a = new int[2];
-                //a[5] = 0;
             }
             else
             {
