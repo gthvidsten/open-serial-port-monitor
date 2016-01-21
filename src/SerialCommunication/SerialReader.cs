@@ -74,6 +74,8 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
             byte[] buffer = new byte[serialPort.BytesToRead];
             serialPort.Read(buffer, 0, buffer.Length);
 
+            serialPort.DiscardInBuffer();
+
             OnDataReceived(this, new SerialDataReceivedEventArgs() { Data = buffer });
         }
 
