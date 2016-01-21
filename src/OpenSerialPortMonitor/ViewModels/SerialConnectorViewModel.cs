@@ -7,10 +7,11 @@ using Caliburn.Micro;
 using Whitestone.OpenSerialPortMonitor.SerialCommunication;
 using Whitestone.OpenSerialPortMonitor.Main.Messages;
 using System.IO.Ports;
+using System.Windows;
 
 namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
 {
-    public class SerialConnectorViewModel : PropertyChangedBase
+    public class SerialConnectorViewModel : PropertyChangedBase, IHandle<ConnectionError>
     {
         private readonly IEventAggregator _eventAggregator;
         
@@ -51,7 +52,8 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
         public SerialConnectorViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
-            
+            _eventAggregator.Subscribe(this);
+
             BindValues();
         }
 
@@ -104,6 +106,18 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
             IsConnected = false;
 
             _eventAggregator.PublishOnBackgroundThread(new SerialPortDisconnect());
+        }
+
+        public void Handle(ConnectionError message)
+        {
+            IsConnected = false;
+
+            string errorMessage = message.Exception.Message;
+            if (message.Exception.InnerException != null)
+            {
+                errorMessage = message.Exception.InnerException.Message;
+            }
+            MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
