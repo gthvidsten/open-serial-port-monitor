@@ -18,7 +18,7 @@ namespace Whitestone.OpenSerialPortMonitor.Main.Views
     /// <summary>
     /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class MainView : UserControl
+    public partial class MainView : Window
     {
         public MainView()
         {

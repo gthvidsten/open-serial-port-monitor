@@ -74,15 +74,20 @@
     </Compile>
     <Compile Include="Framework\AppBootstrapper.cs" />
     <Compile Include="Framework\IShell.cs" />
+    <Compile Include="Messages\Autoscroll.cs" />
     <Compile Include="Messages\SerialPortConnect.cs" />
     <Compile Include="Messages\SerialPortDisconnect.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SerialConnectorViewModel.cs" />
+    <Compile Include="ViewModels\SerialDataViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SerialConnectorView.xaml.cs">
       <DependentUpon>SerialConnectorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SerialDataView.xaml.cs">
+      <DependentUpon>SerialDataView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +124,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SerialConnectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SerialDataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

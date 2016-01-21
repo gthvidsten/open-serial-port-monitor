@@ -1,11 +1,28 @@
-﻿<UserControl x:Class="Whitestone.OpenSerialPortMonitor.Main.Views.MainView"
+﻿<Window x:Class="Whitestone.OpenSerialPortMonitor.Main.Views.MainView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel>
-        <ContentControl x:Name="SerialConnectorView" />
-    </StackPanel>
-</UserControl>
+             Height="600" Width="800">
+    <Grid Background="#FF2a3a56">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#FFd6dbe9">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Exit" x:Name="FileExit"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="_Autoscroll" x:Name="Autoscroll" IsCheckable="True" IsChecked="true"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ContentControl x:Name="SerialConnectorView" Grid.Column="0" Grid.Row="1" Margin="5" VerticalAlignment="Top" />
+        <ContentControl x:Name="SerialDataView" Grid.Column="1" Grid.Row="1" Margin="0, 5, 5, 5" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+    </Grid>
+</Window>

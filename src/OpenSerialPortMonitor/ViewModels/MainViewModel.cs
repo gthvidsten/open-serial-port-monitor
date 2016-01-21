@@ -12,9 +12,10 @@ using Whitestone.OpenSerialPortMonitor.Main.Messages;
 namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
 {
     [Export(typeof(IShell))]
-    public class MainViewModel : Screen, IShell, IHandle<SerialPortConnect>
+    public class MainViewModel : Screen, IShell
     {
         private readonly IEventAggregator _eventAggregator;
+        private bool _isAutoscroll = true;
 
         private SerialConnectorViewModel _serialConnectorView;
         public SerialConnectorViewModel SerialConnectorView
@@ -30,22 +31,42 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
             }
         }
 
+        private SerialDataViewModel _serialDataView;
+        public SerialDataViewModel SerialDataView
+        {
+            get
+            {
+                return _serialDataView;
+            }
+            set
+            {
+                _serialDataView = value;
+                NotifyOfPropertyChange(() => SerialDataView);
+            }
+        }
+
         [ImportingConstructor]
         public MainViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
-            _eventAggregator.Subscribe(this);
         }
 
         protected override void OnInitialize()
         {
             SerialConnectorView = new SerialConnectorViewModel(_eventAggregator);
+            SerialDataView = new SerialDataViewModel(_eventAggregator);
             base.OnInitialize();
         }
 
-        public void Handle(SerialPortConnect message)
+        public void FileExit()
         {
-            MessageBox.Show("Value: " + message.PortName + ", " + message.BaudRate + ", " + message.DataBits + ", " + message.Parity + ", " + message.StopBits);
+            Application.Current.Shutdown();
+        }
+
+        public void Autoscroll()
+        {
+            _isAutoscroll = !_isAutoscroll;
+            _eventAggregator.PublishOnBackgroundThread(new Autoscroll { IsTurnedOn = _isAutoscroll });
         }
     }
 }
