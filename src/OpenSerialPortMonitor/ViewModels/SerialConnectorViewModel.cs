@@ -26,25 +26,25 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
         public Parity SelectedParity { get; set; }
         public StopBits SelectedStopBits { get; set; }
 
-        private string _buttonText = "Connect";
-        public string ButtonText
+        private bool _isConnected = false;
+        public bool IsConnected
         {
-            get { return _buttonText; }
+            get { return _isConnected; }
             set
             {
-                _buttonText = value;
-                NotifyOfPropertyChange(() => ButtonText);
+                _isConnected = value;
+                NotifyOfPropertyChange(() => IsConnected);
+                NotifyOfPropertyChange(() => IsDisconnected);
             }
         }
-
-        private bool _canEdit = true;
-        public bool CanEdit
+        public bool IsDisconnected
         {
-            get { return _canEdit; }
+            get { return !_isConnected; }
             set
             {
-                _canEdit = value;
-                NotifyOfPropertyChange(() => CanEdit);
+                _isConnected = !value;
+                NotifyOfPropertyChange(() => IsConnected);
+                NotifyOfPropertyChange(() => IsDisconnected);
             }
         }
 
@@ -87,27 +87,23 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
 
         public void Connect()
         {
-            if (CanEdit)
-            {
-                ButtonText = "Disconnect";
-                CanEdit = false;
+            IsConnected = true;
 
-                _eventAggregator.PublishOnBackgroundThread(new SerialPortConnect
-                {
-                    PortName = SelectedComPort,
-                    BaudRate = SelectedBaudRate,
-                    DataBits = SelectedDataBits,
-                    Parity = SelectedParity,
-                    StopBits = SelectedStopBits
-                });
-            }
-            else
+            _eventAggregator.PublishOnBackgroundThread(new SerialPortConnect
             {
-                ButtonText = "Connect";
-                CanEdit = true;
+                PortName = SelectedComPort,
+                BaudRate = SelectedBaudRate,
+                DataBits = SelectedDataBits,
+                Parity = SelectedParity,
+                StopBits = SelectedStopBits
+            });
+        }
 
-                _eventAggregator.PublishOnBackgroundThread(new SerialPortDisconnect());
-            }
+        public void Disconnect()
+        {
+            IsConnected = false;
+
+            _eventAggregator.PublishOnBackgroundThread(new SerialPortDisconnect());
         }
     }
 }
