@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -49,6 +50,7 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
         public MainViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
+            base.DisplayName = "Open Serial Port Monitor " + Assembly.GetExecutingAssembly().GetName().Version;
         }
 
         protected override void OnInitialize()
