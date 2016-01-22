@@ -69,5 +69,15 @@ namespace Whitestone.OpenSerialPortMonitor.Main.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap openSerialPortMonIcon {
+            get {
+                object obj = ResourceManager.GetObject("openSerialPortMonIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

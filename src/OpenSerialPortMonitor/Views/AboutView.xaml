@@ -3,10 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" ResizeMode="NoResize" WindowStyle="None">
-    <StackPanel>
-        <Label Content="About"></Label>
-        <Button Content="OK" x:Name="Close" Height="30"></Button>
-    </StackPanel>
+             mc:Ignorable="d" ResizeMode="NoResize" WindowStyle="None" Background="Transparent" AllowsTransparency="True"
+        WindowStartupLocation="CenterOwner" Width="486" Height="226">
+    <Canvas>
+        <Rectangle Fill="White" Width="441" Height="169" Canvas.Left="44" Canvas.Top="56" Stroke="#FF293955" StrokeThickness="4" RadiusX="10" RadiusY="10"/>
+        <Label Content="Open Serial Port Monitor" Canvas.Left="216" Canvas.Top="64" FontWeight="Bold" FontSize="20" HorizontalContentAlignment="Center"></Label>
+        <Label Content="Version" x:Name="Version" Canvas.Left="216" Canvas.Top="93" FontSize="14" Width="247" HorizontalContentAlignment="Center" Height="29"></Label>
+        <Label Content="Copyright © Whitestone" Canvas.Left="216" Canvas.Top="153" FontSize="14" Width="247" HorizontalContentAlignment="Center" Height="29"></Label>
+        <Button Content="OK" x:Name="Close" Height="22" Canvas.Top="193" Canvas.Left="305" Width="75"></Button>
+        <Image Height="200" Width="200" Source="/OpenSerialPortMonitor;component/Resources/openSerialPortMonIcon.png"/>
+    </Canvas>
 </Window>
