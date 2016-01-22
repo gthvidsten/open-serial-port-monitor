@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Height="600" Width="800" Icon="/OpenSerialPortMonitor;component/favicon.ico">
+             Height="600" Width="800" Icon="/OpenSerialPortMonitor;component/Resources/ApplicationIcon.ico">
     <Grid Background="#FF2a3a56">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
