@@ -16,6 +16,8 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
     public class MainViewModel : Screen, IShell
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly IWindowManager _windowManager;
+
         private bool _isAutoscroll = true;
 
         private SerialConnectorViewModel _serialConnectorView;
@@ -47,10 +49,12 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
         }
 
         [ImportingConstructor]
-        public MainViewModel(IEventAggregator eventAggregator)
+        public MainViewModel(IEventAggregator eventAggregator, IWindowManager windowManager)
         {
             _eventAggregator = eventAggregator;
-            base.DisplayName = "Open Serial Port Monitor " + Assembly.GetExecutingAssembly().GetName().Version;
+            _windowManager = windowManager;
+
+            base.DisplayName = "Open Serial Port Monitor";// +Assembly.GetExecutingAssembly().GetName().Version;
         }
 
         protected override void OnInitialize()
@@ -69,6 +73,11 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
         {
             _isAutoscroll = !_isAutoscroll;
             _eventAggregator.PublishOnBackgroundThread(new Autoscroll { IsTurnedOn = _isAutoscroll });
+        }
+
+        public void OpenAbout()
+        {
+            _windowManager.ShowDialog(new AboutViewModel());
         }
     }
 }

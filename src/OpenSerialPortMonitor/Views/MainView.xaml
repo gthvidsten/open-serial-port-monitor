@@ -21,6 +21,9 @@
             <MenuItem Header="_View">
                 <MenuItem Header="_Autoscroll" x:Name="Autoscroll" IsCheckable="True" IsChecked="true"></MenuItem>
             </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About" x:Name="OpenAbout"></MenuItem>
+            </MenuItem>
         </Menu>
         <ContentControl x:Name="SerialConnectorView" Grid.Column="0" Grid.Row="1" Margin="5" VerticalAlignment="Top" />
         <ContentControl x:Name="SerialDataView" Grid.Column="1" Grid.Row="1" Margin="0, 5, 5, 5" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
