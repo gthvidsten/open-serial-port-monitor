@@ -32,9 +32,9 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
         public static IEnumerable<string> GetAvailablePorts()
         {
             List<string> comPorts = new List<string>();
-            
+
             string[] availablePorts = SerialPort.GetPortNames();
-            foreach(string port in availablePorts)
+            foreach (string port in availablePorts)
             {
                 comPorts.Add(port);
             }
@@ -72,6 +72,7 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
 
         public void Stop()
         {
+            // Disconnect from the serial port
             if (_serialPort != null)
             {
                 _serialPort.DataReceived -= SerialPortDataReceived;
@@ -80,10 +81,17 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
                 _serialPort = null;
             }
 
+            // Stop the timer used for the buffer
             if (_bufferTimer != null)
             {
                 _bufferTimer.Stop();
                 _bufferTimer = null;
+            }
+
+            // Send remaining data in the receive buffer
+            lock (_receiveBuffer)
+            {
+                SendBuffer(ref _receiveBuffer);
             }
         }
 
@@ -96,7 +104,7 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
 
             serialPort.DiscardInBuffer();
 
-            lock(_receiveBuffer)
+            lock (_receiveBuffer)
             {
                 _lastReceivedData = DateTime.Now;
 
