@@ -10,7 +10,7 @@
         <Label Content="Open Serial Port Monitor" Canvas.Left="216" Canvas.Top="64" FontWeight="Bold" FontSize="20" HorizontalContentAlignment="Center"></Label>
         <Label Content="Version" x:Name="Version" Canvas.Left="216" Canvas.Top="93" FontSize="14" Width="247" HorizontalContentAlignment="Center" Height="29"></Label>
         <Label Content="Copyright © Whitestone" Canvas.Left="216" Canvas.Top="153" FontSize="14" Width="247" HorizontalContentAlignment="Center" Height="29"></Label>
-        <Button Content="OK" x:Name="Close" Height="22" Canvas.Top="193" Canvas.Left="305" Width="75"></Button>
+        <Button Content="OK" x:Name="CloseWindow" Height="22" Canvas.Top="193" Canvas.Left="305" Width="75"></Button>
         <Image Height="200" Width="200" Source="/OpenSerialPortMonitor;component/Resources/openSerialPortMonIcon.png"/>
     </Canvas>
 </Window>
