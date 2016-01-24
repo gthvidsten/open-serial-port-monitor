@@ -152,9 +152,6 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
                     _dataViewRawBuilder.Append("\r\n");
                 }
             }
-
-            _dataViewHexBuilder.Append("\r\n");
-            _dataViewRawBuilder.Append("\r\n");
         }
 
         public void Handle(SendTestData message)
