@@ -11,7 +11,7 @@ using Whitestone.OpenSerialPortMonitor.SerialCommunication;
 
 namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
 {
-    public class SerialDataViewModel : PropertyChangedBase, IHandle<SerialPortConnect>, IHandle<SerialPortDisconnect>, IHandle<Autoscroll>, IHandle<SendTestData>
+    public class SerialDataViewModel : PropertyChangedBase, IHandle<SerialPortConnect>, IHandle<SerialPortDisconnect>, IHandle<Autoscroll>
     {
         private readonly IEventAggregator _eventAggregator;
         private SerialReader _serialReader;
@@ -118,18 +118,6 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
             IsAutoscroll = message.IsTurnedOn;
         }
 
-        private void SendTestData()
-        {
-            byte[] data = System.Text.Encoding.ASCII.GetBytes(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + "\r\n");
-            //byte[] data = new byte[] { 0x5d, 0x43, 0x31, 0x39, 0x39, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x33, 0x30, 0x30, 0x36, 0x34, 0x39, 0x39, 0x33, 0x35, 0x39, 0x37, 0x39, 0x36, 0x0d, 0x0a };
-            SerialDataReceivedEventArgs args = new SerialDataReceivedEventArgs()
-            {
-                Data = data
-            };
-
-            SerialDataReceived(null, args);
-        }
-
         void SerialDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             _dataViewParsedBuilder.Append(System.Text.Encoding.ASCII.GetString(e.Data));
@@ -152,11 +140,6 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
                     _dataViewRawBuilder.Append("\r\n");
                 }
             }
-        }
-
-        public void Handle(SendTestData message)
-        {
-            SendTestData();
         }
     }
 }

@@ -81,7 +81,6 @@
     <Compile Include="Framework\IShell.cs" />
     <Compile Include="Messages\Autoscroll.cs" />
     <Compile Include="Messages\ConnectionError.cs" />
-    <Compile Include="Messages\SendTestData.cs" />
     <Compile Include="Messages\SerialPortConnect.cs" />
     <Compile Include="Messages\SerialPortDisconnect.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />

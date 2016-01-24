@@ -108,11 +108,6 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
             _eventAggregator.PublishOnBackgroundThread(new SerialPortDisconnect());
         }
 
-        public void SendTestData()
-        {
-            _eventAggregator.PublishOnBackgroundThread(new SendTestData());
-        }
-
         public void Handle(ConnectionError message)
         {
             IsConnected = false;
