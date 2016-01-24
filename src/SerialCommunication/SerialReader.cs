@@ -4,18 +4,30 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
 {
     public class SerialReader : IDisposable
     {
+        // Constants
+        private readonly int MAX_RECEIVE_BUFFER = 64;
+        private readonly int BUFFER_TIMER_INTERVAL = 250;
+
         // Event handlers
         public event EventHandler<SerialDataReceivedEventArgs> SerialDataReceived;
 
         // Private variables
-        SerialPort _serialPort = null;
-        string m_DataBuffer = string.Empty;
+        private SerialPort _serialPort = null;
+        private List<byte> _receiveBuffer = null;
+        private Timer _bufferTimer = null;
+        private DateTime _lastReceivedData = DateTime.Now;
+        private bool _disposed = false;
 
+        public SerialReader()
+        {
+            _receiveBuffer = new List<byte>(MAX_RECEIVE_BUFFER * 2);
+        }
 
         public static IEnumerable<string> GetAvailablePorts()
         {
@@ -27,7 +39,7 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
                 comPorts.Add(port);
             }
 
-            return comPorts;
+            return comPorts.OrderBy(port => port);
         }
 
         public void Start(string portName, int baudRate, Parity parity, int dataBits, StopBits stopBits)
@@ -36,6 +48,11 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
             {
                 throw new Exception(string.Format("Unknown serial port: {0}", portName));
             }
+
+            // Start the timer to empty the receive buffer (in case data smaller than MAX_RECEIVE_BUFFER is received)
+            _bufferTimer = new Timer();
+            _bufferTimer.Interval = BUFFER_TIMER_INTERVAL;
+            _bufferTimer.Elapsed += _bufferTimer_Elapsed;
 
             // Instantiate new serial port communication
             _serialPort = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
@@ -62,21 +79,55 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
                 _serialPort.Dispose();
                 _serialPort = null;
             }
+
+            if (_bufferTimer != null)
+            {
+                _bufferTimer.Stop();
+                _bufferTimer = null;
+            }
         }
 
         private void SerialPortDataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
             // Read the data from COM and empty the COM buffer
-            //string comBuffer = _serialPort.ReadExisting();
-            //_serialPort.DiscardInBuffer(); // Clear buffer
-
             SerialPort serialPort = (SerialPort)sender;
             byte[] buffer = new byte[serialPort.BytesToRead];
             serialPort.Read(buffer, 0, buffer.Length);
 
             serialPort.DiscardInBuffer();
 
-            OnDataReceived(this, new SerialDataReceivedEventArgs() { Data = buffer });
+            lock(_receiveBuffer)
+            {
+                _lastReceivedData = DateTime.Now;
+
+                _receiveBuffer.AddRange(buffer);
+
+                if (_receiveBuffer.Count >= MAX_RECEIVE_BUFFER)
+                {
+                    SendBuffer(ref _receiveBuffer);
+                }
+            }
+        }
+
+        private void _bufferTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            lock (_receiveBuffer)
+            {
+                // Only send data if the last data received was more than BUFFER_TIMER_INTERVAL milliseconds ago
+                // This is to ensure it only empties the buffer when not a lot of data has been received lately
+                if ((DateTime.Now - _lastReceivedData).TotalMilliseconds > BUFFER_TIMER_INTERVAL)
+                {
+                    SendBuffer(ref _receiveBuffer);
+                }
+            }
+        }
+
+        private void SendBuffer(ref List<byte> buffer)
+        {
+            byte[] byteBuffer = buffer.ToArray();
+            buffer.Clear();
+
+            OnDataReceived(this, new SerialDataReceivedEventArgs() { Data = byteBuffer });
         }
 
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -90,7 +141,23 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
 
         public void Dispose()
         {
-            Stop();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                Stop();
+            }
+
+            _disposed = true;
         }
     }
 }
