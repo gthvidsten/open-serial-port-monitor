@@ -55,6 +55,7 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -78,14 +79,17 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Framework\AppBootstrapper.cs" />
+    <Compile Include="Framework\InputBindingTrigger.cs" />
     <Compile Include="Framework\IShell.cs" />
     <Compile Include="Messages\Autoscroll.cs" />
     <Compile Include="Messages\ConnectionError.cs" />
     <Compile Include="Messages\SerialPortConnect.cs" />
     <Compile Include="Messages\SerialPortDisconnect.cs" />
+    <Compile Include="Messages\SerialPortSend.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SerialConnectorViewModel.cs" />
+    <Compile Include="ViewModels\SerialDataSendViewModel.cs" />
     <Compile Include="ViewModels\SerialDataViewModel.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
@@ -95,6 +99,9 @@
     </Compile>
     <Compile Include="Views\SerialConnectorView.xaml.cs">
       <DependentUpon>SerialConnectorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SerialDataSendView.xaml.cs">
+      <DependentUpon>SerialDataSendView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SerialDataView.xaml.cs">
       <DependentUpon>SerialDataView.xaml</DependentUpon>
@@ -138,6 +145,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SerialConnectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SerialDataSendView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

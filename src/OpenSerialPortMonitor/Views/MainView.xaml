@@ -13,6 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
         </Grid.RowDefinitions>
         <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#FFd6dbe9">
             <MenuItem Header="_File">
@@ -26,6 +27,7 @@
             </MenuItem>
         </Menu>
         <ContentControl x:Name="SerialConnectorView" Grid.Column="0" Grid.Row="1" Margin="5" VerticalAlignment="Top" />
-        <ContentControl x:Name="SerialDataView" Grid.Column="1" Grid.Row="1" Margin="0, 5, 5, 5" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+        <ContentControl x:Name="SerialDataView" Grid.Column="1" Grid.Row="1" Margin="0,5,5,5" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+        <ContentControl x:Name="SerialDataSendView" Grid.Column="1" Grid.Row="2" Margin="0,0,5,5" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
     </Grid>
 </Window>

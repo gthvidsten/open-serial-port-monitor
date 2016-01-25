@@ -1,7 +1,9 @@
 ﻿using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -11,7 +13,7 @@ using Whitestone.OpenSerialPortMonitor.SerialCommunication;
 
 namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
 {
-    public class SerialDataViewModel : PropertyChangedBase, IHandle<SerialPortConnect>, IHandle<SerialPortDisconnect>, IHandle<Autoscroll>
+    public class SerialDataViewModel : PropertyChangedBase, IHandle<SerialPortConnect>, IHandle<SerialPortDisconnect>, IHandle<Autoscroll>, IHandle<SerialPortSend>
     {
         private readonly IEventAggregator _eventAggregator;
         private SerialReader _serialReader;
@@ -140,6 +142,19 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
                     _dataViewRawBuilder.Append("\r\n");
                 }
             }
+        }
+
+        public void Handle(SerialPortSend message)
+        {
+            MemoryStream stream1 = new MemoryStream();
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(SerialPortSend));
+
+            ser.WriteObject(stream1, message);
+
+            stream1.Position = 0;
+            StreamReader sr = new StreamReader(stream1);
+
+            MessageBox.Show(sr.ReadToEnd());
         }
     }
 }

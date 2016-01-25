@@ -49,6 +49,20 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
             }
         }
 
+        private SerialDataSendViewModel _serialDataSendView;
+        public SerialDataSendViewModel SerialDataSendView
+        {
+            get
+            {
+                return _serialDataSendView;
+            }
+            set
+            {
+                _serialDataSendView = value;
+                NotifyOfPropertyChange(() => SerialDataSendView);
+            }
+        }
+
         [ImportingConstructor]
         public MainViewModel(IEventAggregator eventAggregator, IWindowManager windowManager)
         {
@@ -62,6 +76,7 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
         {
             SerialConnectorView = new SerialConnectorViewModel(_eventAggregator);
             SerialDataView = new SerialDataViewModel(_eventAggregator);
+            SerialDataSendView = new SerialDataSendViewModel(_eventAggregator);
             base.OnInitialize();
         }
 
