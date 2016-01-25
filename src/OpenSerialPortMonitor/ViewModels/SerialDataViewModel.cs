@@ -146,15 +146,7 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
 
         public void Handle(SerialPortSend message)
         {
-            MemoryStream stream1 = new MemoryStream();
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(SerialPortSend));
-
-            ser.WriteObject(stream1, message);
-
-            stream1.Position = 0;
-            StreamReader sr = new StreamReader(stream1);
-
-            MessageBox.Show(sr.ReadToEnd());
+            _serialReader.Send(message.Data);
         }
     }
 }
