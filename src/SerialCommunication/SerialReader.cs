@@ -70,6 +70,14 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
             _serialPort.DataReceived += SerialPortDataReceived;
         }
 
+        public void Send(byte[] data)
+        {
+            if (_serialPort.IsOpen)
+            {
+                _serialPort.Write(data, 0, data.Length);
+            }
+        }
+
         public void Stop()
         {
             // Disconnect from the serial port
