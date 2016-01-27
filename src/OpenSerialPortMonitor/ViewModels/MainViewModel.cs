@@ -88,7 +88,7 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
         public void Autoscroll()
         {
             _isAutoscroll = !_isAutoscroll;
-            _eventAggregator.PublishOnBackgroundThread(new Autoscroll { IsTurnedOn = _isAutoscroll });
+            _eventAggregator.PublishOnUIThread(new Autoscroll { IsTurnedOn = _isAutoscroll });
         }
 
         public void OpenAbout()

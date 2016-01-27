@@ -127,7 +127,7 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
                 data.AddRange(System.Text.Encoding.ASCII.GetBytes(parsed));
             }
 
-            _eventAggregator.PublishOnBackgroundThread(new Messages.SerialPortSend() { Data = data.ToArray() });
+            _eventAggregator.PublishOnUIThread(new Messages.SerialPortSend() { Data = data.ToArray() });
         }
 
         public void Handle(SerialPortConnect message)

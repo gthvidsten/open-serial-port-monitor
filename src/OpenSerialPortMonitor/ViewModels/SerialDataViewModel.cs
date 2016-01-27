@@ -18,6 +18,7 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private SerialReader _serialReader;
         private Timer _cacheTimer;
+        private int _rawDataCounter = 0;
 
         public SerialDataViewModel(IEventAggregator eventAggregator)
         {
@@ -88,7 +89,7 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
             }
             catch (Exception ex)
             {
-                _eventAggregator.PublishOnBackgroundThread(new ConnectionError() { Exception = ex });
+                _eventAggregator.PublishOnUIThread(new ConnectionError() { Exception = ex });
             }
         }
 
@@ -124,22 +125,25 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
         {
             _dataViewParsedBuilder.Append(System.Text.Encoding.ASCII.GetString(e.Data));
 
-            for (int i = 0; i < e.Data.Length; i++)
+            foreach (byte data in e.Data)
             {
-                char character = (char)e.Data[i];
-                if (e.Data[i] <= 31 ||
-                    e.Data[i] == 127)
+                _rawDataCounter = _rawDataCounter + 1;
+
+                char character = (char)data;
+                if (data <= 31 ||
+                    data == 127)
                 {
                     character = '.';
                 }
 
-                _dataViewHexBuilder.Append(string.Format("{0:x2} ", e.Data[i]));
+                _dataViewHexBuilder.Append(string.Format("{0:x2} ", data));
                 _dataViewRawBuilder.Append(character);
 
-                if (i > 0 && i % 16 == 15)
+                if (_rawDataCounter > 0 && _rawDataCounter % 16 == 15)
                 {
                     _dataViewHexBuilder.Append("\r\n");
                     _dataViewRawBuilder.Append("\r\n");
+                    _rawDataCounter = 0;
                 }
             }
         }

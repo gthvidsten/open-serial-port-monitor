@@ -91,7 +91,7 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
         {
             IsConnected = true;
 
-            _eventAggregator.PublishOnBackgroundThread(new SerialPortConnect
+            _eventAggregator.PublishOnUIThread(new SerialPortConnect
             {
                 PortName = SelectedComPort,
                 BaudRate = SelectedBaudRate,
@@ -105,7 +105,7 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
         {
             IsConnected = false;
 
-            _eventAggregator.PublishOnBackgroundThread(new SerialPortDisconnect());
+            _eventAggregator.PublishOnUIThread(new SerialPortDisconnect());
         }
 
         public void Handle(ConnectionError message)

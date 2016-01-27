@@ -11,8 +11,8 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
     public class SerialReader : IDisposable
     {
         // Constants
-        private readonly int MAX_RECEIVE_BUFFER = 64;
-        private readonly int BUFFER_TIMER_INTERVAL = 250;
+        private readonly int MAX_RECEIVE_BUFFER = 128;
+        private readonly int BUFFER_TIMER_INTERVAL = 100;
 
         // Event handlers
         public event EventHandler<SerialDataReceivedEventArgs> SerialDataReceived;
@@ -26,7 +26,7 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
 
         public SerialReader()
         {
-            _receiveBuffer = new List<byte>(MAX_RECEIVE_BUFFER * 2);
+            _receiveBuffer = new List<byte>(MAX_RECEIVE_BUFFER * 3);
         }
 
         public static IEnumerable<string> GetAvailablePorts()
@@ -53,6 +53,7 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
             _bufferTimer = new Timer();
             _bufferTimer.Interval = BUFFER_TIMER_INTERVAL;
             _bufferTimer.Elapsed += _bufferTimer_Elapsed;
+            _bufferTimer.Start();
 
             // Instantiate new serial port communication
             _serialPort = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
