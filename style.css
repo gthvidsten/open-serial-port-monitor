@@ -1,0 +1,110 @@
+body {
+	margin: 0;
+	padding: 0;
+	color: #3f3f3f;
+	background-color: #f2f2f2;
+	font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+.header,
+.footer {
+	color: #fff;
+	background-color: #293a54;
+}
+
+div.wrap header,
+div.wrap section,
+div.wrap footer {
+	position: relative;
+	width: 800px;
+	margin: 0 auto;
+}
+
+div > header {
+	width: 625px!important;
+	padding: 45px 0 20px 175px;
+	background-image: url('https://raw.githubusercontent.com/whitestone-no/open-serial-port-monitor/master/src/Graphics/openSerialPortMonIcon.png');
+	background-repeat: no-repeat;
+	background-size: 150px 150px;
+	background-position: 0 35px;
+	min-height: 135px;
+}
+
+header a {
+	color: #fff;
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 10px;
+	padding: 10px 50px 10px 10px;
+	background-color: #0090ff;
+	background-image: url('img/GitHubLogo.png');
+	background-repeat: no-repeat;
+	background-position: 95% 50%;
+	border-radius: 0 0 5px 5px;
+}
+
+header h1 {
+	margin: 0;
+	font-weight: bold;
+	font-size: 42px;
+	text-shadow: 3px 3px 6px #192333;
+}
+
+header h2 {
+	margin: 10px 0 0 0;
+	font-size: 24px;
+	text-shadow: 3px 3px 6px #192333;
+}
+
+#Loading {
+	text-align: center;
+}
+
+section {
+	padding: 10px 0;
+}
+
+section h1 {
+	font-size: 36px;
+	font-weight: 700;
+	margin: 25px 0 10px 0;
+}
+section h2 {
+	font-size: 32px;
+	font-weight: 700;
+	margin: 25px 0 10px 0;
+	border-bottom: dotted 1px #cecece;
+}
+section p {
+	margin: 10px 0 15px 0;
+	line-height: 1.5;
+	font-size: 16px;
+}
+section ul {
+	list-style-position: inside;
+	list-style: disc;
+	padding-left: 20px;
+}
+section li {
+	margin: 5px;
+}
+
+section a {
+	color: #007edf;
+}
+
+footer {
+	padding: 30px 0;
+}
+footer a {
+	color: #fff;
+	text-decoration: underline;
+}

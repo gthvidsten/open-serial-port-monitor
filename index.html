@@ -1,81 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8" />
+	<title>Open Serial Port Monitor</title>
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<script src="js/jquery-1.12.0.min.js"></script>
+	<script src="js/marked.js"></script>
+	<script src="js/main.js"></script>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Open Serial Port Monitor : Open source application to monitor traffic over a serial port">
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Open Serial Port Monitor</title>
-  </head>
-
-  <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/whitestone-no/open-serial-port-monitor">View on GitHub</a>
-
-          <h1 id="project_title">Open Serial Port Monitor</h1>
-          <h2 id="project_tagline">Open source application to monitor traffic over a serial port</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/whitestone-no/open-serial-port-monitor/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/whitestone-no/open-serial-port-monitor/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
-<a id="open-serial-port-monitor" class="anchor" href="#open-serial-port-monitor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Open Serial Port Monitor</h1>
-
-<p>Free open source application to monitor traffic over a serial port.
-Simply choose the connection parameters, connect, and see the data received on the chosen serial port.</p>
-
-<h2>
-<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
-
-<ul>
-<li>Microsoft .Net 4.5 (comes preinstalled on Windows 8 and above) (<a href="https://www.microsoft.com/en-us/download/details.aspx?id=42643">Download</a>)</li>
-<li>One or more serial ports on the computer where you run the software</li>
-</ul>
-
-<h2>
-<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
-
-<ul>
-<li>Download the latest relase from the <a href="https://github.com/whitestone-no/open-serial-port-monitor/releases">Release area</a>
-</li>
-<li>Unzip to somewhere on your harddrive</li>
-<li>Run the executable</li>
-</ul>
-
-<h2>
-<a id="screenshots" class="anchor" href="#screenshots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Screenshots</h2>
-
-<p><a href="https://github.com/whitestone-no/open-serial-port-monitor/blob/master/images/2016-01-30_Screenshot.png"><img src="https://github.com/whitestone-no/open-serial-port-monitor/blob/master/images/2016-01-30_Screenshot_t.png" alt="Screenshot"></a></p>
-
-<h2>
-<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Documentation</h2>
-
-<p>Please see <a href="https://github.com/whitestone-no/open-serial-port-monitor/wiki">the Wiki pages</a> for instructions on how to use the software.</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Open Serial Port Monitor maintained by <a href="https://github.com/whitestone-no">whitestone-no</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
-  </body>
+		ga('create', 'UA-31285439-7', 'auto');
+		ga('send', 'pageview');
+</script>
+</head>
+<body>
+	<div class="wrap header">
+		<header>
+			<a href="https://github.com/whitestone-no/open-serial-port-monitor">View on GitHub</a>
+			<h1>Open Serial Port Monitor</h1>
+			<h2>Free open source application to monitor traffic over a serial port</h2>
+		</header>
+	</div>
+	<div class="wrap">
+		<section id="ReadMe">
+			<div id="Loading">
+				<h1>Loading</h1>
+				<img src="img/loading.gif" />
+			</div>
+		</section>
+	</div>
+	<div class="wrap footer">
+		<footer>
+			Open Serial Port Monitor is maintained by <a href="github.com/whitestone-no">Whitestone</a>, Copyright &copy; <span class="CurrentYear">2016</span>
+		</footer>
+	</div>
+</body>
 </html>
