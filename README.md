@@ -16,7 +16,7 @@ Simply choose the connection parameters, connect, and see the data received on t
 
 ## Screenshots
 
-[![Screenshot](https://github.com/whitestone-no/open-serial-port-monitor/blob/master/images/2016-01-30_Screenshot_t.png)](https://github.com/whitestone-no/open-serial-port-monitor/blob/master/images/2016-01-30_Screenshot.png)
+[![Screenshot](https://raw.githubusercontent.com/whitestone-no/open-serial-port-monitor/master/images/2016-01-30_Screenshot_t.png)](https://raw.githubusercontent.com/whitestone-no/open-serial-port-monitor/master/images/2016-01-30_Screenshot.png)
 
 ## Documentation
 
