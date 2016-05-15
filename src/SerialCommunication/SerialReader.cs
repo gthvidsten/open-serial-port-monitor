@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
@@ -23,6 +22,8 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
         private Timer _bufferTimer = null;
         private DateTime _lastReceivedData = DateTime.Now;
         private bool _disposed = false;
+        private System.Threading.Thread _readThread = null;
+        private bool _readThreadRunning = false;
 
         public SerialReader()
         {
@@ -68,7 +69,28 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
             }
 
             _serialPort.ReadTimeout = 100; // Milliseconds
-            _serialPort.DataReceived += SerialPortDataReceived;
+
+            _readThread = new System.Threading.Thread(ReadThread);
+            _readThreadRunning = true;
+            _readThread.Start();
+        }
+
+        private async void ReadThread()
+        {
+            while (_readThreadRunning)
+            {
+                // This is the proper way to read data, according to http://www.sparxeng.com/blog/software/must-use-net-system-io-ports-serialport
+                // Though he uses BeginRead/EndRead, ReadAsync is the preferred way in .NET 4.5
+                byte[] buffer = new byte[MAX_RECEIVE_BUFFER * 3];
+                int bytesRead = await _serialPort.BaseStream.ReadAsync(buffer, 0, buffer.Length);
+
+                byte[] received = new byte[bytesRead];
+                Buffer.BlockCopy(buffer, 0, received, 0, bytesRead);
+                lock (_receiveBuffer)
+                {
+                    _receiveBuffer.AddRange(received);
+                }
+            }
         }
 
         public void Send(byte[] data)
@@ -81,10 +103,11 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
 
         public void Stop()
         {
+            _readThreadRunning = false;
+
             // Disconnect from the serial port
             if (_serialPort != null)
             {
-                _serialPort.DataReceived -= SerialPortDataReceived;
                 _serialPort.Close();
                 _serialPort.Dispose();
                 _serialPort = null;
@@ -104,35 +127,13 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
             }
         }
 
-        private void SerialPortDataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
-        {
-            // Read the data from COM and empty the COM buffer
-            SerialPort serialPort = (SerialPort)sender;
-            byte[] buffer = new byte[serialPort.BytesToRead];
-            serialPort.Read(buffer, 0, buffer.Length);
-
-            serialPort.DiscardInBuffer();
-
-            lock (_receiveBuffer)
-            {
-                _lastReceivedData = DateTime.Now;
-
-                _receiveBuffer.AddRange(buffer);
-
-                if (_receiveBuffer.Count >= MAX_RECEIVE_BUFFER)
-                {
-                    SendBuffer(ref _receiveBuffer);
-                }
-            }
-        }
-
         private void _bufferTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             lock (_receiveBuffer)
             {
                 // Only send data if the last data received was more than BUFFER_TIMER_INTERVAL milliseconds ago
                 // This is to ensure it only empties the buffer when not a lot of data has been received lately
-                if ((DateTime.Now - _lastReceivedData).TotalMilliseconds > BUFFER_TIMER_INTERVAL)
+                if ((DateTime.Now - _lastReceivedData).TotalMilliseconds > BUFFER_TIMER_INTERVAL && _receiveBuffer.Count > 0)
                 {
                     SendBuffer(ref _receiveBuffer);
                 }
@@ -144,15 +145,10 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
             byte[] byteBuffer = buffer.ToArray();
             buffer.Clear();
 
-            OnDataReceived(this, new SerialDataReceivedEventArgs() { Data = byteBuffer });
-        }
-
-        private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
             EventHandler<SerialDataReceivedEventArgs> handler = SerialDataReceived;
             if (handler != null)
             {
-                handler(this, e);
+                handler(this, new SerialDataReceivedEventArgs() { Data = byteBuffer });
             }
         }
 
