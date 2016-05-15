@@ -10,7 +10,7 @@ Simply choose the connection parameters, connect, and see the data received on t
 
 ## Installation
 
-* Download the latest relase from the [Release area](https://github.com/whitestone-no/open-serial-port-monitor/releases)
+* [Download the latest relase from the Release area](https://github.com/whitestone-no/open-serial-port-monitor/releases)
 * Unzip to somewhere on your harddrive
 * Run the executable
 
