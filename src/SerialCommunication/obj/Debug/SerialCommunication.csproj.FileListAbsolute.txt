@@ -1,0 +1,16 @@
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\bin\Debug\SerialCommunication.dll
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\bin\Debug\SerialCommunication.pdb
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\bin\Debug\System.Windows.Interactivity.dll
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\bin\Debug\de\System.Windows.Interactivity.resources.dll
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\bin\Debug\en\System.Windows.Interactivity.resources.dll
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\bin\Debug\es\System.Windows.Interactivity.resources.dll
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\bin\Debug\it\System.Windows.Interactivity.resources.dll
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\obj\Debug\SerialCommunication.dll
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\obj\Debug\SerialCommunication.pdb
+D:\Projects\Temp\open-serial-port-monitor\src\SerialCommunication\obj\Debug\SerialCommunication.csprojResolveAssemblyReference.cache

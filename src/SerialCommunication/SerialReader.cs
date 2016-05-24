@@ -79,16 +79,23 @@ namespace Whitestone.OpenSerialPortMonitor.SerialCommunication
         {
             while (_readThreadRunning)
             {
-                // This is the proper way to read data, according to http://www.sparxeng.com/blog/software/must-use-net-system-io-ports-serialport
-                // Though he uses BeginRead/EndRead, ReadAsync is the preferred way in .NET 4.5
-                byte[] buffer = new byte[MAX_RECEIVE_BUFFER * 3];
-                int bytesRead = await _serialPort.BaseStream.ReadAsync(buffer, 0, buffer.Length);
-
-                byte[] received = new byte[bytesRead];
-                Buffer.BlockCopy(buffer, 0, received, 0, bytesRead);
-                lock (_receiveBuffer)
+                try
                 {
-                    _receiveBuffer.AddRange(received);
+                    // This is the proper way to read data, according to http://www.sparxeng.com/blog/software/must-use-net-system-io-ports-serialport
+                    // Though he uses BeginRead/EndRead, ReadAsync is the preferred way in .NET 4.5
+                    byte[] buffer = new byte[MAX_RECEIVE_BUFFER * 3];
+                    int bytesRead = await _serialPort.BaseStream.ReadAsync(buffer, 0, buffer.Length);
+
+                    byte[] received = new byte[bytesRead];
+                    Buffer.BlockCopy(buffer, 0, received, 0, bytesRead);
+                    lock (_receiveBuffer)
+                    {
+                        _receiveBuffer.AddRange(received);
+                    }
+                }
+                catch
+                {
+
                 }
             }
         }
