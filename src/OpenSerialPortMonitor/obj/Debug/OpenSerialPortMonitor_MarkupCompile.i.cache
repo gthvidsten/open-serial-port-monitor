@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\Projects\Temp\open-serial-port-monitor\src\OpenSerialPortMonitor\obj\Debug\
+C:\Users\fapo.SPOTTOG\Source\Repos\open-serial-port-monitor\src\OpenSerialPortMonitor\obj\Debug\
 Whitestone.OpenSerialPortMonitor.Main
 none
 false
 DEBUG;TRACE
-D:\Projects\Temp\open-serial-port-monitor\src\OpenSerialPortMonitor\App.xaml
+C:\Users\fapo.SPOTTOG\Source\Repos\open-serial-port-monitor\src\OpenSerialPortMonitor\App.xaml
 5231517310
 
-26-1779096540
-692133236741
+23-1332301753
+701201618920
 Views\AboutView.xaml;Views\MainView.xaml;Views\SerialConnectorView.xaml;Views\SerialDataSendView.xaml;Views\SerialDataView.xaml;
 
 True

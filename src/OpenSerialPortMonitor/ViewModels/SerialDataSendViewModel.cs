@@ -44,6 +44,9 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
             set
             {
                 _isHex = value;
+                if (value){
+                    LineEnd = LENONE;
+                }
                 NotifyOfPropertyChange(() => IsHex);
                 NotifyOfPropertyChange(() => IsValidData);
             }
@@ -89,23 +92,42 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
         }
 
         private bool _isConnected = false;
-        public bool IsConnected
-        {
+        public bool IsConnected {
             get { return _isConnected; }
-            set
-            {
+            set {
                 _isConnected = value;
                 NotifyOfPropertyChange(() => IsConnected);
                 NotifyOfPropertyChange(() => IsValidData);
             }
         }
-
+        private bool _clearAfterSend = false;
+        public bool ClearAfterSend {
+            get { return _clearAfterSend; }
+            set {
+                _clearAfterSend = value;
+                NotifyOfPropertyChange(() => ClearAfterSend);
+            }
+        }
+        private string _lineEnd;
+        public string LineEnd {
+            get { return _lineEnd; }
+            set {
+                Console.WriteLine(value.ToString());
+                _lineEnd = value;
+                NotifyOfPropertyChange(() => LineEnd);
+            }
+        }
+        private const string LENONE = "No Line End";
+        private const string LECR = "add CR";
+        private const string LELF = "add LF";
+        private const string LECRLD = "add CR + LF";
+        public string[] LineEndsValues { get; } = {LENONE, LECR, LELF, LECRLD};
         public SerialDataSendViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
+            LineEnd = LENONE;
         }
-
         public void DoSend()
         {
             List<byte> data = new List<byte>();
@@ -124,7 +146,21 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
             if (IsText)
             {
                 string parsed = DataToSend.Replace("\\\\r", "\r").Replace("\\\\n", "\n");
+                switch (LineEnd){
+                    case LECR:
+                        parsed += "\r";
+                        break;
+                    case LELF:
+                        parsed += "\n";
+                        break;
+                    case LECRLD:
+                        parsed += "\r\n";
+                        break;
+                }
                 data.AddRange(System.Text.Encoding.ASCII.GetBytes(parsed));
+                if (ClearAfterSend){
+                    DataToSend = String.Empty;
+                }
             }
 
             _eventAggregator.PublishOnUIThread(new Messages.SerialPortSend() { Data = data.ToArray() });

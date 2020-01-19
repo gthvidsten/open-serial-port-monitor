@@ -19,7 +19,8 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Content="Received data" Background="#FF4d6082" Foreground="White" Padding="5,2,0,0"></Label>
-
+                <Button Grid.Row="0" Content="Clear" HorizontalAlignment="Right" Margin="5,0,5,0"  x:Name="ClearRecived"/>
+                <Button Grid.Row="0" Content="Clear All" HorizontalAlignment="Right" Margin="5,0,40,0"  x:Name="ClearAllRecived"/>
                 <ScrollViewer Grid.Row="1" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" x:Name="ParsedDataScroller" Tag="{Binding IsAutoscroll}">
                     <TextBox Background="#FFFFFFFF" VerticalAlignment="Stretch" Padding="5" x:Name="DataViewParsed" IsReadOnly="True" IsUndoEnabled="False" TextWrapping="Wrap" FontFamily="Courier New" ></TextBox>
                 </ScrollViewer>
@@ -35,6 +36,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Content="Raw data" Background="#FF4d6082" Foreground="White" Margin="0,0,0,0" Padding="5,2,0,0"></Label>
+                <Button Grid.Row="0" Content="Clear" HorizontalAlignment="Right" Margin="5,0,5,0"  x:Name="ClearData"/>
                 <ScrollViewer Grid.Row="1" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" x:Name="RawDataScroller" Tag="{Binding IsAutoscroll}">
                     <Grid>
                         <Grid.ColumnDefinitions>

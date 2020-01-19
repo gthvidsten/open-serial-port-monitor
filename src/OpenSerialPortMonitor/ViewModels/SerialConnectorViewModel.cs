@@ -86,7 +86,32 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
 
             SelectedComPort = ports.FirstOrDefault();
         }
-
+        public void LoadPorts()
+        {
+            IEnumerable<string> ports = SerialReader.GetAvailablePorts();
+            List<string> toChange = new List<string>();
+            //Search not non-existent
+            foreach (var port in ComPorts){
+                if (!ports.Contains(port)){
+                    toChange.Add(port);
+                }
+            }
+            //Delete not non-existent
+            ComPorts.RemoveRange(toChange);
+            toChange.Clear();
+            //Search New
+            foreach (var port in ports){
+                if (!ComPorts.Contains(port)){
+                    toChange.Add(port);
+                }
+            }
+            //Add New
+            ComPorts.AddRange(toChange);
+            //Select One if needed
+            if (SelectedComPort == null || !ComPorts.Contains(SelectedComPort)){
+                SelectedComPort = ComPorts.FirstOrDefault();
+            }
+        }
         public void Connect()
         {
             IsConnected = true;
