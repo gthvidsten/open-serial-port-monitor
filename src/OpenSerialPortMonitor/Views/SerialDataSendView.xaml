@@ -33,6 +33,8 @@
                 <Label Grid.Row="2" Content="Data format:" Width="80" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,0,5,5"></Label>
                 <RadioButton Grid.Row="2" Margin="85,7,5,5" Content="Text" GroupName="DataFormat" x:Name="IsText" />
                 <RadioButton Grid.Row="2" Margin="140,7,5,5" Content="Hex" GroupName="DataFormat" x:Name="IsHex" />
+                <CheckBox Grid.Row="2" Margin="200,7,5,5" Content="Clear after Send" x:Name="ClearAfterSend" />
+                <ComboBox Grid.Row="2" Margin="5,0,85,5" Name="CBLineEnd" Padding="15,4,15,4" Width="120" HorizontalAlignment="Right" IsEnabled="{Binding IsText}" SelectedItem="{Binding LineEnd}" ItemsSource="{Binding LineEndsValues}" />
                 <Button Grid.Row="2" Content="Send" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,0,5,5" Padding="15,4,15,4" x:Name="DoSend" IsEnabled="{Binding IsValidData}"></Button>
                 
             </Grid>

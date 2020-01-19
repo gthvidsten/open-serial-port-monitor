@@ -9,7 +9,7 @@ using System.Windows.Interactivity;
 
 namespace Whitestone.OpenSerialPortMonitor.Main.Framework
 {
-    public class InputBindingTrigger:TriggerBase<FrameworkElement>,ICommand
+    public class InputBindingTrigger:TriggerBase<FrameworkElement>, ICommand
     {
         public InputBindingTrigger()
         {

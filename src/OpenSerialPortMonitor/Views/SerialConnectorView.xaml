@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="195" d:DesignWidth="212">
+             d:DesignHeight="229" d:DesignWidth="212">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"></BooleanToVisibilityConverter>
     </UserControl.Resources>
@@ -19,6 +19,7 @@
                 <RowDefinition Height="21"></RowDefinition>
                 <RowDefinition Height="25"></RowDefinition>
                 <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -48,6 +49,8 @@
 
             <Button Grid.Row="6" Grid.ColumnSpan="2" Content="Connect" x:Name="Connect" Visibility="{Binding IsDisconnected, Converter={StaticResource booleanToVisibilityConverter}}" Height="30" Margin="0,5,0,0"></Button>
             <Button Grid.Row="6" Grid.ColumnSpan="2" Content="Disconnect" x:Name="Disconnect" Visibility="{Binding IsConnected, Converter={StaticResource booleanToVisibilityConverter}}" Height="30" Margin="0,5,0,0"></Button>
+
+            <Button Grid.Row="7" Grid.ColumnSpan="2" Content="Reload Ports" x:Name="LoadPorts" IsEnabled="{Binding IsDisconnected}" Height="30" Margin="0,5,0,0"></Button>
         </Grid>
     </Border>
 </UserControl>

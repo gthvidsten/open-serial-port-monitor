@@ -152,5 +152,17 @@ namespace Whitestone.OpenSerialPortMonitor.Main.ViewModels
         {
             _serialReader.Send(message.Data);
         }
+
+        public void ClearAllRecived(){
+            ClearRecived();
+            ClearData();
+        }
+        public void ClearRecived(){
+            DataViewParsed = String.Empty;
+        }
+        public void ClearData(){
+            DataViewHex = String.Empty;
+            DataViewRaw = String.Empty;
+        }
     }
 }
